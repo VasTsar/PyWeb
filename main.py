@@ -1,10 +1,9 @@
 from flask import Flask, render_template, redirect
 from data import db_session
-from forms.user import RegisterForm
+from forms.register_login import RegisterForm, LoginForm
 from data.objects import Objects
 from data.users import User
-
-from flask_login import LoginManager, LoginForm, login_user, login_required, logout_user
+from flask_login import LoginManager, login_user, login_required, logout_user
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
@@ -49,7 +48,7 @@ def logout():
 @app.route("/")
 def index():
     db_sess = db_session.create_session()
-    objects = db_sess.query(Objects).filter(Objects.is_private != True)
+    objects = db_sess.query(Objects)
     return render_template("index.html", objects=objects)
 
 
