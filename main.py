@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect
+from flask import Flask, render_template, redirect, url_for, request
 from data import db_session
 from forms.register_login import RegisterForm, LoginForm
 from data.objects import Objects
@@ -45,11 +45,27 @@ def logout():
     return redirect("/")
 
 
-@app.route("/")
+@app.route("/", methods=['GET', 'POST'])
 def index():
     db_sess = db_session.create_session()
     objects = db_sess.query(Objects)
-    return render_template("index.html", objects=objects)
+    kwargs = {'img1': url_for('static', filename='img/Narkomfin.jpg'),
+              'img2': url_for('static', filename='img/Kolomenskoye.jpg'),
+              'id1': 1,
+              'id2': 2,
+              'choose_image': False,
+              'similar': []
+              }
+    if request.method == 'GET':
+        return render_template("index.html", objects=objects, **kwargs)
+    elif request.method == 'POST':
+        if request.form:
+            kwargs['choose_image'] = True
+            similar_objects = db_sess.query(Objects).get(request.form['group1']).similar.split(', ')
+            kwargs['similar'] = similar_objects
+            return render_template("index.html", objects=objects, **kwargs)
+        else:
+            return redirect(url_for(f'map/{request.form["group1"]}'))
 
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -74,6 +90,19 @@ def reqister():
         db_sess.commit()
         return redirect('/login')
     return render_template('register.html', title='Регистрация', form=form)
+
+
+@app.route('/load', methods=['GET', 'POST'])
+def load():
+    if request.method == 'GET':
+        return render_template("load_object.html")
+    elif request.method == 'POST':
+        req = request.files.get('file', None)
+        if req:
+            with open(f'static/img/tmp.png', 'wb') as file:
+                file.write(req.read())
+            filename = 'tmp.png'
+        return render_template("load_object.html")
 
 
 if __name__ == '__main__':

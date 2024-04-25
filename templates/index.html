@@ -2,6 +2,33 @@
 
 {% block content %}
 <h1>Выберите понравившийся объект</h1>
+<div>
+    <img src="{{img1}}"  alt="Картинка не нашлась" height="300">
+    <img src="{{img2}}"  alt="Картинка не нашлась" height="300">
+    <br>
+    <form method="post">
+        <fieldset id="group1">
+            <input type="radio" value="{{id1}}" name="group1">
+            <input type="radio" value="{{id2}}" name="group1">
+        </fieldset>
+        <p>
+            <input type="submit" value="Подтвердить">
+        </p>
+    </form>
+</div>
 
+{% if choose_image %}
+Похожие объекты
+
+    {% for object_name in similar %}
+        <p> {{object_name}} </p>
+    {% endfor %}
+    <form method="post">
+            <p>
+                <input type="submit" id="show_on_map" value="Показать на карте">
+            </p>
+    </form>
+
+{% endif %}
 
 {% endblock %}

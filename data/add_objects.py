@@ -2,7 +2,7 @@ from data import db_session
 from data.objects import Objects
 
 if __name__ == '__main__':
-    db_session.global_init('db/architecture.db')
+    db_session.global_init('../db/architecture.db')
     db_sess = db_session.create_session()
     object = Objects(
         name='Дом Наркомфина',
@@ -12,7 +12,7 @@ if __name__ == '__main__':
                     'и Николая Милютина.',
         similar='Дом-корабль',
         user_id=1,
-        image='img/Narkomfin.jpg'
+        image='Narkomfin.jpg'
     )
     db_sess.add(object)
     object = Objects(
@@ -23,7 +23,7 @@ if __name__ == '__main__':
                     'историко-архитектурное и природно-ландшафтное музей-заповедник.',
         similar='Царицыно, Кусково',
         user_id=1,
-        image='img/Kolomenskoye.jpg'
+        image='Kolomenskoye.jpg'
     )
     db_sess.add(object)
     object = Objects(
@@ -34,7 +34,7 @@ if __name__ == '__main__':
                     'выдающийся образец храмового зодчества на Руси.',
         similar='Церковь Николая Чудотворца в Хамовниках',
         user_id=1,
-        image='img/Ascension.jpg'
+        image='Ascension.jpg'
     )
     db_sess.add(object)
     db_sess.commit()
