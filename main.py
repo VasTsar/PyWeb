@@ -57,13 +57,13 @@ def index():
               'similar': []
               }
     if request.method == 'GET':
-        return render_template("index.html", objects=objects, **kwargs)
+        return render_template("index2.html", objects=objects, **kwargs)
     elif request.method == 'POST':
         if request.form:
             kwargs['choose_image'] = True
             similar_objects = db_sess.query(Objects).get(request.form['group1']).similar.split(', ')
             kwargs['similar'] = similar_objects
-            return render_template("index.html", objects=objects, **kwargs)
+            return render_template("index2.html", objects=objects, **kwargs)
         else:
             return redirect(url_for(f'map/{request.form["group1"]}'))
 
