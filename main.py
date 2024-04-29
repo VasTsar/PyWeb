@@ -4,6 +4,7 @@ from forms.register_login import RegisterForm, LoginForm
 from data.objects import Objects
 from data.users import User
 from flask_login import LoginManager, login_user, login_required, logout_user
+import random
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
