@@ -4,7 +4,7 @@ from forms.register_login import RegisterForm, LoginForm
 from data.objects import Objects
 from data.users import User
 from flask_login import LoginManager, login_user, login_required, logout_user
-import random
+from data.get_info import id1, id2, inf1, inf2, img1, img2
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
@@ -50,16 +50,12 @@ def logout():
 def index():
     db_sess = db_session.create_session()
     objects = db_sess.query(Objects)
-    filenames = ['Narkomfin.jpg', 'Kolomenskoye.jpg', 'Ascension.jpg', 'Simonov.jpg']
-    id1 = int(random.sample(range(1, 4), 1)[0])
-    id2 = int(random.sample(range(1, 4), 1)[0])
-    print(id1, id2)
     kwargs = {'id1': id1,
               'id2': id2,
-              'img1': url_for('static', filename=f'img/{filenames[id1]}'),
-              'img2': url_for('static', filename=f'img/{filenames[id2]}'),
-              'inf1': '',
-              'inf2': '',
+              'img1': url_for('static', filename=f'img/{img1}'),
+              'img2': url_for('static', filename=f'img/{img2}'),
+              'inf1': inf1,
+              'inf2': inf2,
               'choose_image': False,
               'similar': []
               }
