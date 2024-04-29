@@ -58,6 +58,8 @@ def index():
               'id2': id2,
               'img1': url_for('static', filename=f'img/{filenames[id1]}'),
               'img2': url_for('static', filename=f'img/{filenames[id2]}'),
+              'inf1': '',
+              'inf2': '',
               'choose_image': False,
               'similar': []
               }
