@@ -50,10 +50,14 @@ def logout():
 def index():
     db_sess = db_session.create_session()
     objects = db_sess.query(Objects)
-    kwargs = {'img1': url_for('static', filename='img/Narkomfin.jpg'),
-              'img2': url_for('static', filename='img/Kolomenskoye.jpg'),
-              'id1': random.sample(range(1, 4), 1),
-              'id2': random.sample(range(1, 4), 1),
+    filenames = ['Narkomfin.jpg', 'Kolomenskoye.jpg', 'Ascension.jpg', 'Simonov.jpg']
+    id1 = int(random.sample(range(1, 4), 1)[0])
+    id2 = int(random.sample(range(1, 4), 1)[0])
+    print(id1, id2)
+    kwargs = {'id1': id1,
+              'id2': id2,
+              'img1': url_for('static', filename=f'img/{filenames[id1]}'),
+              'img2': url_for('static', filename=f'img/{filenames[id2]}'),
               'choose_image': False,
               'similar': []
               }
