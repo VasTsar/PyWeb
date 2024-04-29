@@ -1,0 +1,38 @@
+.flip-box{
+    background-color: transparent;
+    height: 300px;
+    width: 300px;
+    border: 1px solid #f1f1f1;
+    perspective: 1000px;
+    }
+    .flip-box-inner{
+    text-align: center;
+    transform-style: preserve-3d;
+    transition: transform 0.8s;
+    width: 300px;
+    height: 300px;
+    }
+    .flip-box:hover .flip-box-inner{
+    transform: rotateY(180deg);
+    }
+    .flip-box-front, .flip-box-back{
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    backface-visibility: hidden;
+    }
+    .flip-box-front{
+    background-color: #bbb;
+    color: black;
+    }
+    .flip-box-back{
+    color: black;
+    text-align: center;
+    transform: rotateY(180deg);
+    width: 300px;
+    height: 300px;
+    }
+.flipping_image{
+    width: 300px;
+    height: 300px;
+}
