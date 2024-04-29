@@ -52,8 +52,8 @@ def index():
     objects = db_sess.query(Objects)
     kwargs = {'img1': url_for('static', filename='img/Narkomfin.jpg'),
               'img2': url_for('static', filename='img/Kolomenskoye.jpg'),
-              'id1': 1,
-              'id2': 2,
+              'id1': random.sample(range(1, 4), 1),
+              'id2': random.sample(range(1, 4), 1),
               'choose_image': False,
               'similar': []
               }
