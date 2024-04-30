@@ -109,6 +109,7 @@ def show_map():
         load_map_image(session['address'], f'map_{number_of_images}.png')
         session['image_name'] = f'map_{number_of_images}.png'
         number_of_images += 1
+
     return render_template('show_map.html', image_name=url_for('static',
                                                                filename=f"img/{session.get('image_name')}"))
 

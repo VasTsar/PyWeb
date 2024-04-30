@@ -2,4 +2,23 @@
 
 {% block content %}
     <img src="{{image_name}}" alt="Изображение не найдено">
+    <p>{{session['address']}}</p>
+<div class="container my-5">
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3">
+        <form method="post">
+            <fieldset id="group1">
+                <input type="radio" value="{{id3}}" name="group2" checked="checked">
+                <p> Схема </p>
+                <input type="radio" value="{{id4}}" name="group2">
+                <p> Спутник </p>
+                <input type="radio" value="{{id5}}" name="group2">
+                <p> Гибрид </p>
+            </fieldset>
+            <p>
+                <input type="submit" value="Подтвердить">
+            </p>
+        </form>
+    </div>
+</div>
+
 {% endblock %}

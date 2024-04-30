@@ -44,14 +44,13 @@
 {% if choose_image %}
 Похожие объекты
 
-{% for object_name in similar %}
-<p> {{object_name}} </p>
-{% endfor %}
-<a href="/show_map" target="_blank"  rel="noopener noreferrer">
-    <input type="submit" id="show_on_map" value="Показать на карте">
-</a>
+    {% for object_name in similar %}
+        <p> {{object_name}} </p>
+    {% endfor %}
 
-
+    <a href="/show_map" target="_blank"  rel="noopener noreferrer">
+        <input type="submit" id="show_on_map" value="Показать на карте">
+    </a>
 
 {% endif %}
 
