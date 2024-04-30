@@ -5,7 +5,7 @@ from data.objects import Objects
 from data.users import User
 from flask_login import LoginManager, login_user, login_required, logout_user
 from data.get_info import get_info
-from map_builder import load_map_image
+from map_builder import load_map_image, get_ll_span
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
@@ -102,22 +102,25 @@ def reqister():
     return render_template('register.html', title='Регистрация', form=form)
 
 
-@app.route('/show_map', methods=['GET'])
+@app.route('/show_map', methods=['GET', 'POST'])
 def show_map():
     global number_of_images
-    db_sess = db_session.create_session()
-    objects = db_sess.query(Objects)
-    if 'address' in session:
-        load_map_image(session['address'], f'map_{number_of_images}.png')
-        session['image_name'] = f'map_{number_of_images}.png'
-        number_of_images += 1
-    if request.method == 'POST':
+    if request.method == 'GET':
+        if 'address' in session:
+            style = 'map'
+            load_map_image(session['address'], f'map_{number_of_images}.png', style)
+            session['image_name'] = f'map_{number_of_images}.png'
+            number_of_images += 1
+    elif request.method == 'POST':
         if request.form:
-            chosen_object = db_sess.query(Objects).get(request.form['group1'])
-            address = chosen_object.address
-            session['address'] = address
+            chosen_style = request.form['group2']
+            load_map_image(session['address'], f'map_{number_of_images}.png', chosen_style)
+            print(chosen_style)
+            session['image_name'] = f'map_{number_of_images}.png'
+            number_of_images += 1
         else:
-            return redirect(url_for(f'map/{request.form["group1"]}'))
+            return redirect(url_for(f'map/{request.form["group2"]}'))
+    print(session)
 
     return render_template('show_map.html', image_name=url_for('static',
                                                                filename=f"img/{session.get('image_name')}"))
