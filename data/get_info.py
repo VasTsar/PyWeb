@@ -3,6 +3,7 @@ import random
 
 
 def get_info():
+    """ Получает информацию об объекта через запрос к бд """
     con = sqlite3.connect('db/architecture.db')
     cur = con.cursor()
     max_id = cur.execute("""SELECT MAX(id) FROM Objects""").fetchone()[0]

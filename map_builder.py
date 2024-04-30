@@ -5,7 +5,7 @@ API_KEY = '40d1649f-0493-4b70-98ba-98533de7710b'
 
 
 def geocode(address):
-    # Собираем запрос для геокодера.
+    """ Собирает запрос для геокодера """
     geocoder_request = f"http://geocode-maps.yandex.ru/1.x/"
     geocoder_params = {
         "apikey": API_KEY,
@@ -30,8 +30,8 @@ def geocode(address):
     return features[0]["GeoObject"] if features else None
 
 
-# Получаем координаты объекта по его адресу.
 def get_coordinates(address):
+    """ Получает координаты объекта по адресу"""
     toponym = geocode(address)
     if not toponym:
         return None, None
@@ -74,6 +74,7 @@ def get_ll_span(address):
 
 
 def load_map_image(name, filename, style):
+    """ Загружает картинку выбранного объекта на карте"""
     ll, span = get_ll_span('Москва' + name)
     response = f'https://static-maps.yandex.ru/1.x/?ll={ll}&z=16&l={style}&spn={span}&pt={ll},comma'
     answer = requests.get(response)

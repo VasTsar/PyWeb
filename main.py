@@ -5,7 +5,7 @@ from data.objects import Objects
 from data.users import User
 from flask_login import LoginManager, login_user, login_required, logout_user
 from data.get_info import get_info
-from map_builder import load_map_image, get_ll_span
+from map_builder import load_map_image
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
@@ -22,12 +22,14 @@ def main():
 
 @login_manager.user_loader
 def load_user(user_id):
+    """ Загрузка ползователя """
     db_sess = db_session.create_session()
     return db_sess.query(User).get(user_id)
 
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    """ Функция, отвечающая за логин"""
     form = LoginForm()
     if form.validate_on_submit():
         db_sess = db_session.create_session()
@@ -50,6 +52,7 @@ def logout():
 
 @app.route("/", methods=['GET', 'POST'])
 def index():
+    """ Основная функция, отвечающая за происходящее на главной станице"""
     db_sess = db_session.create_session()
     objects = db_sess.query(Objects)
     if request.method == 'GET':
@@ -64,7 +67,7 @@ def index():
               'similar': []
               }
     if request.method == 'GET':
-        return render_template("index2.html", objects=objects, **kwargs)
+        return render_template("index.html", objects=objects, **kwargs)
     elif request.method == 'POST':
         if request.form:
             kwargs['choose_image'] = True
@@ -73,13 +76,14 @@ def index():
             address = chosen_object.address
             kwargs['similar'] = similar_objects
             session['address'] = address
-            return render_template("index2.html", objects=objects, **kwargs)
+            return render_template("index.html", objects=objects, **kwargs)
         else:
             return redirect(url_for(f'map/{request.form["group1"]}'))
 
 
 @app.route('/register', methods=['GET', 'POST'])
 def reqister():
+    """ Регистрация """
     form = RegisterForm()
     if form.validate_on_submit():
         if form.password.data != form.password_again.data:
@@ -104,6 +108,7 @@ def reqister():
 
 @app.route('/show_map', methods=['GET', 'POST'])
 def show_map():
+    """ Показывает объект на карте"""
     global number_of_images
     if request.method == 'GET':
         if 'address' in session:
@@ -124,6 +129,7 @@ def show_map():
 
 @app.route('/load', methods=['GET', 'POST'])
 def load():
+    """ Позволяет пользователю загрузить свой объект"""
     if request.method == 'GET':
         return render_template("load_object.html")
     elif request.method == 'POST':

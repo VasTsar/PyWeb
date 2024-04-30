@@ -5,6 +5,7 @@ from .db_session import SqlAlchemyBase
 
 
 class Objects(SqlAlchemyBase):
+    """ Класс объектов"""
     __tablename__ = 'objects'
 
     id = sqlalchemy.Column(sqlalchemy.Integer,
