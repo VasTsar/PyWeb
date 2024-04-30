@@ -115,12 +115,8 @@ def show_map():
         if request.form:
             chosen_style = request.form['group2']
             load_map_image(session['address'], f'map_{number_of_images}.png', chosen_style)
-            print(chosen_style)
             session['image_name'] = f'map_{number_of_images}.png'
             number_of_images += 1
-        else:
-            return redirect(url_for(f'map/{request.form["group2"]}'))
-    print(session)
 
     return render_template('show_map.html', image_name=url_for('static',
                                                                filename=f"img/{session.get('image_name')}"))
