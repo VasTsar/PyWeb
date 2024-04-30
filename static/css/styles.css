@@ -2,7 +2,6 @@
     background-color: transparent;
     height: 300px;
     width: 300px;
-    border: 1px solid #f1f1f1;
     perspective: 1000px;
     }
     .flip-box-inner{
@@ -22,7 +21,6 @@
     backface-visibility: hidden;
     }
     .flip-box-front{
-    background-color: #bbb;
     color: black;
     }
     .flip-box-back{
@@ -35,4 +33,5 @@
 .flipping_image{
     width: 300px;
     height: 300px;
+    border-radius: 20px;
 }
