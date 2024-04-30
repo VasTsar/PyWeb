@@ -105,10 +105,19 @@ def reqister():
 @app.route('/show_map', methods=['GET'])
 def show_map():
     global number_of_images
+    db_sess = db_session.create_session()
+    objects = db_sess.query(Objects)
     if 'address' in session:
         load_map_image(session['address'], f'map_{number_of_images}.png')
         session['image_name'] = f'map_{number_of_images}.png'
         number_of_images += 1
+    if request.method == 'POST':
+        if request.form:
+            chosen_object = db_sess.query(Objects).get(request.form['group1'])
+            address = chosen_object.address
+            session['address'] = address
+        else:
+            return redirect(url_for(f'map/{request.form["group1"]}'))
 
     return render_template('show_map.html', image_name=url_for('static',
                                                                filename=f"img/{session.get('image_name')}"))

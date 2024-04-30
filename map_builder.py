@@ -75,7 +75,8 @@ def get_ll_span(address):
 
 def load_map_image(name, filename):
     ll, span = get_ll_span('Москва' + name)
-    response = f'https://static-maps.yandex.ru/1.x/?ll={ll}&z=16&l=map&spn={span}&pt={ll},comma'
+    l = 'map'
+    response = f'https://static-maps.yandex.ru/1.x/?ll={ll}&z=16&l={l}&spn={span}&pt={ll},comma'
 
     answer = requests.get(response)
     with open(os.path.join('static', 'img', filename), 'wb') as file:
